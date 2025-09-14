@@ -1,0 +1,14 @@
+<div class="user-card" [ngClass]="'card-' + cardStyle">
+  <div class="user-info">
+    <h4>{{ user.name || 'Unknown User' }}</h4>
+    <p class="email">{{ user.email || 'No email' }}</p>
+    <p class="role">{{ user.role || 'No role' }}</p>
+    <p *ngIf="cardStyle === 'detailed'" class="bio">{{ user.bio || 'No bio available' }}</p>
+  </div>
+  
+  <div *ngIf="showActions" class="user-actions">
+    <button (click)="onSelect()" class="btn btn-primary btn-sm">Select</button>
+    <button (click)="onEdit()" class="btn btn-warning btn-sm">Edit</button>
+    <button (click)="onDelete()" class="btn btn-danger btn-sm">Delete</button>
+  </div>
+</div>

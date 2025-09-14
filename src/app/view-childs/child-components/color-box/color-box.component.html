@@ -1,0 +1,11 @@
+<div 
+  class="color-box" 
+  [ngClass]="getSizeClass()"
+  [class.active]="isActive"
+  [style.background-color]="color"
+  (click)="onClick()">
+  <div class="color-box-content">
+    <span class="color-label">{{ label }}</span>
+    <span class="color-value">{{ color }}</span>
+  </div>
+</div>

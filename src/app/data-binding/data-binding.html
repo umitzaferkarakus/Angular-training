@@ -1,0 +1,215 @@
+<div class="data-binding-page">
+  <section class="notes">
+    <h3>Key Notes (Data Binding)</h3>
+    <ul>
+      <li>Interpolation only renders strings; do not inject unsafe HTML.</li>
+      <li>Property binding sets DOM properties; don’t confuse with attribute binding.</li>
+      <li>Event binding preserves one‑way data flow; keep handlers pure.</li>
+      <li>Two‑way binding (<code>[(ngModel)]</code>) is convenient but can complicate state if overused.</li>
+    </ul>
+    <h4>Pros</h4>
+    <ul>
+      <li>Readable and declarative data flow.</li>
+      <li>Quick to wire up forms and interactivity.</li>
+    </ul>
+    <h4>Cons</h4>
+    <ul>
+      <li>Overusing two‑way binding can lead to complex state management.</li>
+      <li>Watch out for unnecessary re‑renders on large lists.</li>
+    </ul>
+  </section>
+  <h2>Angular Data Binding Examples</h2>
+  <p>This page demonstrates various types of data binding in Angular: interpolation, property binding, event binding, and two-way binding.</p>
+
+  <!-- Example 1: User Profile Form -->
+  <div class="example-section">
+    <h3>Example 1: User Profile Form (Two-way Data Binding)</h3>
+    <p>This example shows two-way data binding with form inputs, property binding, and event binding.</p>
+    
+    <div class="form-container">
+      <div class="form-group">
+        <label for="name">Name:</label>
+        <input 
+          id="name" 
+          type="text" 
+          [(ngModel)]="user.name" 
+          class="form-control"
+          placeholder="Enter your name">
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input 
+          id="email" 
+          type="email" 
+          [(ngModel)]="user.email" 
+          class="form-control"
+          placeholder="Enter your email">
+      </div>
+
+      <div class="form-group">
+        <label for="age">Age:</label>
+        <input 
+          id="age" 
+          type="number" 
+          [(ngModel)]="user.age" 
+          class="form-control"
+          min="0" 
+          max="120">
+      </div>
+
+      <div class="form-group">
+        <label for="country">Country:</label>
+        <select 
+          id="country" 
+          [(ngModel)]="user.country" 
+          class="form-control">
+          <option *ngFor="let country of countries" [value]="country">
+            {{ country }}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>
+          <input 
+            type="checkbox" 
+            [(ngModel)]="user.isActive" 
+            class="form-checkbox">
+          Active User
+        </label>
+      </div>
+
+      <div class="form-group">
+        <label for="bio">Bio:</label>
+        <textarea 
+          id="bio" 
+          [(ngModel)]="user.bio" 
+          class="form-control"
+          rows="3"
+          placeholder="Tell us about yourself">
+        </textarea>
+      </div>
+
+      <div class="form-actions">
+        <button (click)="updateUserProfile()" class="btn btn-primary">Update Profile</button>
+        <button (click)="resetForm()" class="btn btn-secondary">Reset Form</button>
+      </div>
+    </div>
+
+    <!-- Live Preview -->
+    <div class="preview-section">
+      <h4>Live Preview:</h4>
+      <div class="user-preview">
+        <p><strong>Name:</strong> {{ user.name }}</p>
+        <p><strong>Email:</strong> {{ user.email }}</p>
+        <p><strong>Age:</strong> {{ user.age }}</p>
+        <p><strong>Country:</strong> {{ user.country }}</p>
+        <p><strong>Status:</strong> 
+          <span [class]="user.isActive ? 'status-active' : 'status-inactive'">
+            {{ user.isActive ? 'Active' : 'Inactive' }}
+          </span>
+        </p>
+        <p><strong>Bio:</strong> {{ user.bio }}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Example 2: Shopping Cart -->
+  <div class="example-section">
+    <h3>Example 2: Shopping Cart (Property & Event Binding)</h3>
+    <p>This example demonstrates property binding, event binding, and computed properties.</p>
+    
+    <div class="cart-container">
+      <div class="cart-summary">
+        <h4>Cart Summary</h4>
+        <p>Total Items: <strong>{{ totalItems }}</strong></p>
+        <p>In Stock: <strong class="text-success">{{ inStockItems }}</strong></p>
+        <p>Out of Stock: <strong class="text-danger">{{ outOfStockItems }}</strong></p>
+        <p>Subtotal: <strong>${{ cartTotal | number:'1.2-2' }}</strong></p>
+        <p *ngIf="discountApplied" class="text-success">Discount Applied: 10% off!</p>
+        <p>Final Total: <strong class="total-price">${{ finalTotal | number:'1.2-2' }}</strong></p>
+      </div>
+
+      <div class="discount-section">
+        <h4>Apply Discount</h4>
+        <div class="discount-input">
+          <input 
+            type="text" 
+            [(ngModel)]="discountCode" 
+            placeholder="Enter discount code"
+            class="form-control">
+          <button (click)="applyDiscount()" class="btn btn-info">Apply</button>
+        </div>
+        <p class="discount-hint">Try: "save10" for 10% off</p>
+      </div>
+
+      <div class="products-section">
+        <h4>Products</h4>
+        <div class="products-grid">
+          <div *ngFor="let product of products" class="product-card" [class.out-of-stock]="!product.inStock">
+            <h5>{{ product.name }}</h5>
+            <p class="price">${{ product.price | number:'1.2-2' }}</p>
+            <p class="stock-status" [class]="product.inStock ? 'in-stock' : 'out-of-stock'">
+              {{ product.inStock ? 'In Stock' : 'Out of Stock' }}
+            </p>
+            
+            <div class="quantity-controls">
+              <label>Quantity:</label>
+              <button (click)="updateQuantity(product.id, product.quantity - 1)" 
+                      [disabled]="product.quantity <= 0" 
+                      class="btn btn-sm btn-secondary">-</button>
+              <span class="quantity">{{ product.quantity }}</span>
+              <button (click)="updateQuantity(product.id, product.quantity + 1)" 
+                      [disabled]="!product.inStock" 
+                      class="btn btn-sm btn-primary">+</button>
+            </div>
+
+            <div class="product-actions">
+              <button (click)="toggleProductStock(product.id)" 
+                      [class]="product.inStock ? 'btn btn-warning' : 'btn btn-success'"
+                      class="btn btn-sm">
+                {{ product.inStock ? 'Mark Out of Stock' : 'Mark In Stock' }}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cart-actions">
+        <button (click)="resetCart()" class="btn btn-secondary">Reset Cart</button>
+        <button (click)="calculateTotal()" class="btn btn-info">Recalculate</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Data Binding Types Explanation -->
+  <div class="example-section">
+    <h3>Data Binding Types Demonstrated</h3>
+    <div class="binding-types">
+      <div class="binding-type">
+        <h4>Interpolation ({{ '{{ }}' }})</h4>
+        <p>Used to display component data in the template</p>
+        <code>{{ user.name }}</code>
+      </div>
+      
+      <div class="binding-type">
+        <h4>Property Binding ([property])</h4>
+        <p>Used to set element properties from component data</p>
+        <code>[class]="user.isActive ? 'active' : 'inactive'"</code>
+      </div>
+      
+      <div class="binding-type">
+        <h4>Event Binding ((event))</h4>
+        <p>Used to respond to user events</p>
+        <code>(click)="updateUserProfile()"</code>
+      </div>
+      
+      <div class="binding-type">
+        <h4>Two-way Binding ([(ngModel)])</h4>
+        <p>Combines property and event binding for form inputs</p>
+        <code>[(ngModel)]="user.name"</code>
+      </div>
+    </div>
+  </div>
+</div>

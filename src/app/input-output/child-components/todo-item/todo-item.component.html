@@ -1,0 +1,59 @@
+<div class="todo-item" [ngClass]="priorityClass" [class.completed]="todo.completed" [class.overdue]="isOverdue">
+  <div class="todo-content">
+    <div class="todo-header">
+      <input 
+        type="checkbox" 
+        [checked]="todo.completed"
+        (change)="toggleComplete()"
+        class="todo-checkbox">
+      
+      <div class="todo-text">
+        <span *ngIf="!isEditing" class="text">{{ todo.text }}</span>
+        <input 
+          *ngIf="isEditing"
+          [(ngModel)]="editText"
+          (blur)="saveEdit()"
+          (keyup.enter)="saveEdit()"
+          (keyup.escape)="cancelEdit()"
+          class="edit-input"
+          #editInput>
+      </div>
+
+      <div class="todo-actions">
+        <button 
+          *ngIf="!isEditing && editable"
+          (click)="startEdit()" 
+          class="btn btn-sm btn-outline">
+          Edit
+        </button>
+        <button 
+          (click)="deleteTodo()" 
+          class="btn btn-sm btn-danger">
+          Delete
+        </button>
+      </div>
+    </div>
+
+    <div class="todo-meta">
+      <span *ngIf="showPriority && todo.priority" class="priority-badge">
+        {{ todo.priority }}
+      </span>
+      
+      <span *ngIf="showDate && todo.dueDate" class="due-date" [class.overdue]="isOverdue">
+        Due: {{ todo.dueDate | date:'short' }}
+      </span>
+    </div>
+  </div>
+
+  <div *ngIf="editable && showPriority" class="priority-controls">
+    <label>Priority:</label>
+    <select 
+      [value]="todo.priority || 'medium'"
+      (change)="changePriority($any($event.target).value)"
+      class="priority-select">
+      <option value="low">Low</option>
+      <option value="medium">Medium</option>
+      <option value="high">High</option>
+    </select>
+  </div>
+</div>

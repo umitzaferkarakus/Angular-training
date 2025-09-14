@@ -1,0 +1,27 @@
+<div class="text-editor" [class.focused]="isFocused" [class.readonly]="readonly">
+  <div class="editor-header">
+    <span class="editor-title">Text Editor</span>
+    <div class="editor-stats">
+      <span class="char-count">{{ charCount }}/{{ maxLength }} chars</span>
+      <span class="word-count">{{ wordCount }} words</span>
+    </div>
+  </div>
+  
+  <textarea
+    #textArea
+    [(ngModel)]="content"
+    (ngModelChange)="onContentChange()"
+    (focus)="onFocus()"
+    (blur)="onBlur()"
+    [placeholder]="placeholder"
+    [readonly]="readonly"
+    [maxlength]="maxLength"
+    class="editor-textarea">
+  </textarea>
+  
+  <div class="editor-footer">
+    <div class="cursor-info" *ngIf="isFocused">
+      Cursor position: {{ getCursorPosition() }}
+    </div>
+  </div>
+</div>

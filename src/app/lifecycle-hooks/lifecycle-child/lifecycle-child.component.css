@@ -1,0 +1,17 @@
+.lifecycle-child {
+  padding: 15px;
+  margin: 10px 0;
+  border: 2px solid #28a745;
+  border-radius: 8px;
+  background-color: #f8f9fa;
+}
+
+.lifecycle-child h4 {
+  margin: 0 0 10px 0;
+  color: #28a745;
+}
+
+.lifecycle-child p {
+  margin: 5px 0;
+  font-size: 14px;
+}

@@ -1,0 +1,9 @@
+<div class="counter">
+  <h4>Counter: {{ currentValue }}</h4>
+  <div class="counter-controls">
+    <button (click)="decrement()" class="btn btn-secondary">-</button>
+    <button (click)="reset()" class="btn btn-secondary">Reset</button>
+    <button (click)="increment()" class="btn btn-primary">+</button>
+  </div>
+  <p class="counter-info">Step: {{ step }}</p>
+</div>

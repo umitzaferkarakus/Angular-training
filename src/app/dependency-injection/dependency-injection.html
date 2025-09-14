@@ -1,0 +1,27 @@
+<div class="di-page">
+  <section class="example-section" style="margin-bottom: 1rem;">
+    <h3>Dependency Injection Demo</h3>
+    <p class="hint">Using LoggerService provided in root scope.</p>
+    <button (click)="sendLog()">Write Log</button>
+  </section>
+  <section class="notes">
+    <h3>Key Notes (Dependency Injection)</h3>
+    <ul>
+      <li>Provider scopes: <code>providedIn: 'root'</code> (singleton), component/provider tree (hierarchical), and module/route‑scoped.</li>
+      <li>Use <code>InjectionToken</code> instead of interfaces; types are erased at runtime.</li>
+      <li>Keep services side‑effect free and easy to test when possible.</li>
+    </ul>
+    <h4>Pros</h4>
+    <ul>
+      <li>Loose coupling, easier testing and reuse.</li>
+      <li>Flexible configuration with hierarchical injectors.</li>
+    </ul>
+    <h4>Cons</h4>
+    <ul>
+      <li>Wrong scope may create unexpected multiple instances.</li>
+      <li>Cross‑dependencies increase maintenance cost.</li>
+    </ul>
+  </section>
+  <h2>Dependency Injection</h2>
+  <p>Intro content for Dependency Injection.</p>
+</div>

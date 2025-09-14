@@ -1,0 +1,105 @@
+<div class="lifecycle-page">
+  <section class="notes">
+    <h3>Key Notes (Lifecycle Hooks)</h3>
+    <ul>
+      <li>Do side effects in <code>ngOnInit</code> or the appropriate hook; avoid heavy work in the constructor.</li>
+      <li>For @Input changes, use <code>ngOnChanges</code> or consider reactive patterns.</li>
+      <li>Clean up subscriptions in <code>ngOnDestroy</code> to prevent memory leaks.</li>
+      <li>Avoid unnecessary <code>ngDoCheck</code> for performance.</li>
+    </ul>
+    <h4>Pros</h4>
+    <ul>
+      <li>Fine‑grained control over the component lifecycle.</li>
+      <li>Clear points for resource management and cleanup.</li>
+    </ul>
+    <h4>Cons</h4>
+    <ul>
+      <li>Using the wrong hook can lead to unexpected behavior.</li>
+      <li>Excessive work/logging can slow change detection cycles.</li>
+    </ul>
+  </section>
+  <h2>Angular Lifecycle Hooks</h2>
+  <p>This page demonstrates all Angular lifecycle hooks with console logging. Open your browser's developer console to see the execution order and timing of each hook.</p>
+
+  <div class="lifecycle-demo" #lifecycleDemo>
+    <h3>Lifecycle Hooks Demonstration</h3>
+    
+    <div class="demo-section">
+      <h4>Component State</h4>
+      <p><strong>Counter:</strong> {{ counter }}</p>
+      <p><strong>Input Value:</strong> {{ inputValue }}</p>
+      <p><strong>Child Input:</strong> {{ childInput }}</p>
+    </div>
+
+    <div class="demo-section">
+      <h4>Interactive Controls</h4>
+      <div class="controls">
+        <button (click)="incrementCounter()" class="btn btn-primary">Increment Counter</button>
+        <button (click)="updateInputValue()" class="btn btn-secondary">Update Input Value</button>
+        <button (click)="updateChildInput()" class="btn btn-info">Update Child Input</button>
+        <button (click)="toggleChild()" class="btn btn-warning">
+          {{ showChild ? 'Hide' : 'Show' }} Child Component
+        </button>
+        <button (click)="triggerChangeDetection()" class="btn btn-success">Trigger Change Detection</button>
+      </div>
+    </div>
+
+    <div class="demo-section">
+      <h4>Child Component (Content Projection)</h4>
+      <ng-content></ng-content>
+      <app-lifecycle-child 
+        *ngIf="showChild" 
+        [childInput]="childInput">
+      </app-lifecycle-child>
+    </div>
+
+    <div class="demo-section">
+      <h4>Lifecycle Hooks Information</h4>
+      <div class="hooks-info">
+        <div class="hook-item">
+          <strong>Constructor:</strong> Called when component is created
+        </div>
+        <div class="hook-item">
+          <strong>ngOnChanges:</strong> Called when input properties change
+        </div>
+        <div class="hook-item">
+          <strong>ngOnInit:</strong> Called after component initialization
+        </div>
+        <div class="hook-item">
+          <strong>ngDoCheck:</strong> Called during every change detection cycle
+        </div>
+        <div class="hook-item">
+          <strong>ngAfterContentInit:</strong> Called after content projection is initialized
+        </div>
+        <div class="hook-item">
+          <strong>ngAfterContentChecked:</strong> Called after content projection is checked
+        </div>
+        <div class="hook-item">
+          <strong>ngAfterViewInit:</strong> Called after component view is initialized
+        </div>
+        <div class="hook-item">
+          <strong>ngAfterViewChecked:</strong> Called after component view is checked
+        </div>
+        <div class="hook-item">
+          <strong>ngOnDestroy:</strong> Called before component is destroyed
+        </div>
+      </div>
+    </div>
+
+    <div class="demo-section">
+      <h4>Console Instructions</h4>
+      <p>Open your browser's developer console (F12) to see the lifecycle hooks being called in real-time. Each hook includes:</p>
+      <ul>
+        <li>🔧 Constructor - Component creation</li>
+        <li>🚀 ngOnInit - Initialization complete</li>
+        <li>🔄 ngOnChanges - Input property changes</li>
+        <li>🔍 ngDoCheck - Change detection cycle</li>
+        <li>📦 ngAfterContentInit - Content projection initialized</li>
+        <li>📦✅ ngAfterContentChecked - Content projection checked</li>
+        <li>👁️ ngAfterViewInit - View initialized</li>
+        <li>👁️✅ ngAfterViewChecked - View checked</li>
+        <li>💀 ngOnDestroy - Component destruction</li>
+      </ul>
+    </div>
+  </div>
+</div>

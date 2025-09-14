@@ -1,0 +1,49 @@
+/* Components page styles */
+.components-page {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.examples-section {
+  margin-bottom: 40px;
+  padding: 20px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  background: #f9f9f9;
+}
+
+.examples-section h3 {
+  color: #333;
+  margin-top: 0;
+  border-bottom: 2px solid #007bff;
+  padding-bottom: 8px;
+}
+
+.button-examples {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin: 16px 0;
+}
+
+.card-examples {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin: 16px 0;
+}
+
+.counter-examples {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin: 16px 0;
+}
+
+.click-count, .counter-info {
+  font-weight: bold;
+  color: #007bff;
+  margin-top: 12px;
+}
+

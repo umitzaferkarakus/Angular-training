@@ -1,0 +1,29 @@
+<div class="modules-page">
+  <section class="notes">
+    <h3>Key Notes (NgModule & Standalone)</h3>
+    <ul>
+      <li>Since Angular 16+, standalone components are common; NgModule is still present in many projects.</li>
+      <li>Modules are useful for feature boundaries, lazy loading, and shared structure.</li>
+      <li>Standalone defines dependencies at component level and reduces module boilerplate.</li>
+    </ul>
+    <h4>Pros</h4>
+    <ul>
+      <li>NgModule: clear separation and lazy loading structure.</li>
+      <li>Standalone: less boilerplate and direct dependency declaration.</li>
+    </ul>
+    <h4>Cons</h4>
+    <ul>
+      <li>NgModule: over‑modularization can create complex dependency graphs.</li>
+      <li>Standalone: migration in hybrid projects needs careful management.</li>
+    </ul>
+  </section>
+  <h2>Modules</h2>
+  <p>Intro content for Modules.</p>
+
+  <section class="example-section">
+    <h3>Shared Pipe Example (TruncatePipe)</h3>
+    <p><strong>Original:</strong> {{ demoText }}</p>
+    <p><strong>Truncated 50:</strong> {{ demoText | truncate:50 }}</p>
+    <p><strong>Truncated 80 with custom suffix:</strong> {{ demoText | truncate:80:'...' }}</p>
+  </section>
+</div>

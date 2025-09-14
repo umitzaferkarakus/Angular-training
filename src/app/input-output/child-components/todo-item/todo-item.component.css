@@ -1,0 +1,169 @@
+.todo-item {
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 12px;
+  margin: 8px 0;
+  background: white;
+  transition: all 0.2s ease;
+}
+
+.todo-item:hover {
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.todo-item.completed {
+  opacity: 0.6;
+  background: #f8f9fa;
+}
+
+.todo-item.overdue {
+  border-left: 4px solid #dc3545;
+}
+
+.todo-content {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.todo-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.todo-checkbox {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+}
+
+.todo-text {
+  flex: 1;
+}
+
+.text {
+  font-size: 16px;
+  color: #333;
+}
+
+.edit-input {
+  width: 100%;
+  padding: 4px 8px;
+  border: 1px solid #007bff;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.todo-actions {
+  display: flex;
+  gap: 6px;
+}
+
+.todo-meta {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  font-size: 12px;
+}
+
+.priority-badge {
+  padding: 2px 6px;
+  border-radius: 12px;
+  font-weight: bold;
+  font-size: 10px;
+  text-transform: uppercase;
+}
+
+.due-date {
+  color: #666;
+}
+
+.due-date.overdue {
+  color: #dc3545;
+  font-weight: bold;
+}
+
+.priority-controls {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid #eee;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.priority-controls label {
+  font-size: 12px;
+  color: #666;
+}
+
+.priority-select {
+  padding: 2px 6px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 12px;
+}
+
+/* Priority Classes */
+.priority-low {
+  border-left: 4px solid #28a745;
+}
+
+.priority-medium {
+  border-left: 4px solid #ffc107;
+}
+
+.priority-high {
+  border-left: 4px solid #dc3545;
+}
+
+.priority-badge {
+  background: #e9ecef;
+  color: #495057;
+}
+
+.priority-low .priority-badge {
+  background: #d4edda;
+  color: #155724;
+}
+
+.priority-medium .priority-badge {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.priority-high .priority-badge {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+.btn {
+  padding: 4px 8px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: all 0.2s ease;
+}
+
+.btn-sm {
+  padding: 2px 6px;
+  font-size: 11px;
+}
+
+.btn-outline {
+  background: transparent;
+  border: 1px solid #007bff;
+  color: #007bff;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  color: white;
+}
+
+.btn:hover {
+  opacity: 0.8;
+  transform: translateY(-1px);
+}

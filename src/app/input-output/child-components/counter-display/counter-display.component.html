@@ -1,0 +1,39 @@
+<div class="counter-display">
+  <h4>{{ label }}</h4>
+  
+  <div class="counter-value">
+    <span class="count">{{ count }}</span>
+    <span class="range">({{ min }} - {{ max }})</span>
+  </div>
+
+  <div class="progress-bar">
+    <div class="progress-fill" [style.width.%]="progressPercentage"></div>
+  </div>
+
+  <div *ngIf="showControls" class="counter-controls">
+    <button 
+      (click)="decrement()" 
+      [disabled]="isAtMin"
+      class="btn btn-secondary">
+      -{{ step }}
+    </button>
+    
+    <button 
+      (click)="increment()" 
+      [disabled]="isAtMax"
+      class="btn btn-primary">
+      +{{ step }}
+    </button>
+    
+    <button 
+      (click)="reset()" 
+      class="btn btn-warning">
+      Reset
+    </button>
+  </div>
+
+  <div class="status-messages">
+    <p *ngIf="isAtMax" class="status max-reached">Maximum reached!</p>
+    <p *ngIf="isAtMin" class="status min-reached">Minimum reached!</p>
+  </div>
+</div>

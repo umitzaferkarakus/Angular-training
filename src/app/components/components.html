@@ -1,0 +1,91 @@
+<div class="components-page">
+  <section class="notes">
+    <h3>Key Notes (Components)</h3>
+    <ul>
+      <li>Single Responsibility: each component should have a clear purpose.</li>
+      <li>Define clear contracts with Inputs/Outputs.</li>
+      <li>Choose Change Detection strategy (Default/OnPush) as needed.</li>
+      <li>With standalone components, declare dependencies locally.</li>
+    </ul>
+    <h4>Pros</h4>
+    <ul>
+      <li>Reuse, testability, and easy composition.</li>
+    </ul>
+    <h4>Cons</h4>
+    <ul>
+      <li>Too many tiny components may cause over‑fragmentation.</li>
+      <li>Poor naming and unclear contracts create confusion.</li>
+    </ul>
+  </section>
+  <h2>Angular Components Examples</h2>
+  <p>This page demonstrates three basic Angular components with different features and use cases.</p>
+
+  <div class="examples-section">
+    <h3>1. Button Component</h3>
+    <p>A reusable button component with different variants and event handling.</p>
+    <div class="button-examples">
+      <app-example-button 
+        text="Primary Button" 
+        variant="primary" 
+        (clicked)="onButtonClick()">
+      </app-example-button>
+      
+      <app-example-button 
+        text="Secondary Button" 
+        variant="secondary" 
+        (clicked)="onButtonClick()">
+      </app-example-button>
+      
+      <app-example-button 
+        text="Danger Button" 
+        variant="danger" 
+        (clicked)="onButtonClick()">
+      </app-example-button>
+      
+      <app-example-button 
+        text="Disabled Button" 
+        variant="primary" 
+        [disabled]="true">
+      </app-example-button>
+    </div>
+    <p class="click-count">Button clicks: {{ buttonClickCount }}</p>
+  </div>
+
+  <div class="examples-section">
+    <h3>2. Card Component</h3>
+    <p>A flexible card component that can display content with optional images.</p>
+    <div class="card-examples">
+      <app-example-card
+        title="Sample Card"
+        content="This is a sample card component with some content to demonstrate its functionality."
+        imageUrl="https://via.placeholder.com/300x200/007bff/ffffff?text=Sample+Image"
+        [showImage]="true">
+      </app-example-card>
+      
+      <app-example-card
+        title="Text Only Card"
+        content="This card doesn't have an image, showing the component's flexibility."
+        [showImage]="false">
+      </app-example-card>
+    </div>
+  </div>
+
+  <div class="examples-section">
+    <h3>3. Counter Component</h3>
+    <p>An interactive counter component with input properties and output events.</p>
+    <div class="counter-examples">
+      <app-example-counter
+        [initialValue]="0"
+        [step]="1"
+        (valueChanged)="onCounterChange($event)">
+      </app-example-counter>
+      
+      <app-example-counter
+        [initialValue]="10"
+        [step]="5"
+        (valueChanged)="onCounterChange($event)">
+      </app-example-counter>
+    </div>
+    <p class="counter-info">Current counter value: {{ counterValue }}</p>
+  </div>
+</div>

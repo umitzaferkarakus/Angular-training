@@ -1,0 +1,228 @@
+<div class="input-output-page">
+  <section class="notes">
+    <h3>Key Notes (@Input/@Output)</h3>
+    <ul>
+      <li>@Input flows data one‑way from parent to child; avoid mutating from the child.</li>
+      <li>Use EventEmitter for @Output; name events to clearly express the action.</li>
+      <li>Update data immutably to simplify change detection.</li>
+      <li>For complex flows, prefer service‑based or RxJS‑based sharing.</li>
+    </ul>
+    <h4>Pros</h4>
+    <ul>
+      <li>Clear, directional communication between components.</li>
+      <li>Events are easy to test and trace.</li>
+    </ul>
+    <h4>Cons</h4>
+    <ul>
+      <li>Can lead to prop drilling in deep hierarchies.</li>
+      <li>Many event types can clutter templates.</li>
+    </ul>
+  </section>
+  <h2>Angular @Input() and @Output() Examples</h2>
+  <p>This page demonstrates parent-child component communication using @Input() and @Output() decorators with multiple practical examples.</p>
+
+  <!-- Example 1: User Management -->
+  <div class="example-section">
+    <h3>Example 1: User Management with @Input() and @Output()</h3>
+    <p>This example shows how to pass data to child components using @Input() and handle events using @Output().</p>
+    
+    <div class="user-management">
+      <div class="user-controls">
+        <h4>User Card Controls</h4>
+        <div class="control-group">
+          <label>Card Style:</label>
+          <select [(ngModel)]="userCardStyle" class="form-control">
+            <option value="default">Default</option>
+            <option value="compact">Compact</option>
+            <option value="detailed">Detailed</option>
+          </select>
+        </div>
+        <div class="control-group">
+          <label>
+            <input type="checkbox" [(ngModel)]="showUserActions" class="form-checkbox">
+            Show Actions
+          </label>
+        </div>
+        <button (click)="addNewUser()" class="btn btn-primary">Add New User</button>
+      </div>
+
+      <div class="user-cards">
+        <h4>User Cards</h4>
+        <div class="cards-grid">
+          <app-user-card
+            *ngFor="let user of users"
+            [user]="user"
+            [showActions]="showUserActions"
+            [cardStyle]="userCardStyle"
+            (userSelected)="onUserSelected($event)"
+            (userDeleted)="onUserDeleted($event)"
+            (userEdited)="onUserEdited($event)">
+          </app-user-card>
+        </div>
+      </div>
+
+      <div class="selected-user" *ngIf="selectedUser">
+        <h4>Selected User Details</h4>
+        <div class="user-details">
+          <p><strong>Name:</strong> {{ selectedUser.name }}</p>
+          <p><strong>Email:</strong> {{ selectedUser.email }}</p>
+          <p><strong>Role:</strong> {{ selectedUser.role }}</p>
+          <p><strong>Bio:</strong> {{ selectedUser.bio }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Example 2: Counter Management -->
+  <div class="example-section">
+    <h3>Example 2: Counter Management with Multiple @Output() Events</h3>
+    <p>This example demonstrates handling multiple output events from child components.</p>
+    
+    <div class="counter-management">
+      <div class="counters-display">
+        <h4>Counters</h4>
+        <div class="counters-grid">
+          <app-counter-display
+            *ngFor="let counter of counters"
+            [count]="counter.count"
+            [step]="counter.step"
+            [min]="counter.min"
+            [max]="counter.max"
+            [label]="counter.label"
+            [showControls]="true"
+            (countChanged)="onCountChanged(counter.id, $event)"
+            (countReset)="onCountReset(counter.id)"
+            (countReachedMax)="onCountReachedMax(counter.id, $event)"
+            (countReachedMin)="onCountReachedMin(counter.id, $event)">
+          </app-counter-display>
+        </div>
+      </div>
+
+      <div class="counter-events">
+        <h4>Counter Events Log</h4>
+        <div class="events-container">
+          <div *ngFor="let event of counterEvents" class="event-item">
+            {{ event }}
+          </div>
+          <div *ngIf="counterEvents.length === 0" class="no-events">
+            No events yet. Interact with the counters above!
+          </div>
+        </div>
+        <button (click)="clearCounterEvents()" class="btn btn-secondary btn-sm">Clear Events</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Example 3: Todo Management -->
+  <div class="example-section">
+    <h3>Example 3: Todo Management with Complex @Input() and @Output()</h3>
+    <p>This example shows complex data flow between parent and child components with multiple input properties and output events.</p>
+    
+    <div class="todo-management">
+      <div class="todo-summary">
+        <h4>Todo Summary</h4>
+        <p>Total: {{ totalTodos }} | Completed: {{ completedTodos }} | Remaining: {{ totalTodos - completedTodos }}</p>
+      </div>
+
+      <div class="add-todo">
+        <h4>Add New Todo</h4>
+        <div class="add-todo-form">
+          <input 
+            [(ngModel)]="newTodoText" 
+            placeholder="Enter todo text"
+            class="form-control">
+          <select [(ngModel)]="newTodoPriority" class="form-control">
+            <option value="low">Low Priority</option>
+            <option value="medium">Medium Priority</option>
+            <option value="high">High Priority</option>
+          </select>
+          <button (click)="addNewTodo()" class="btn btn-primary">Add Todo</button>
+        </div>
+      </div>
+
+      <div class="todos-list">
+        <h4>Todos</h4>
+        <div class="todos-container">
+          <app-todo-item
+            *ngFor="let todo of todos"
+            [todo]="todo"
+            [showPriority]="true"
+            [showDate]="true"
+            [editable]="true"
+            (todoToggled)="onTodoToggled($event)"
+            (todoDeleted)="onTodoDeleted($event)"
+            (todoEdited)="onTodoEdited($event)"
+            (priorityChanged)="onPriorityChanged($event)">
+          </app-todo-item>
+        </div>
+      </div>
+
+      <div class="todo-events">
+        <h4>Todo Events Log</h4>
+        <div class="events-container">
+          <div *ngFor="let event of todoEvents" class="event-item">
+            {{ event }}
+          </div>
+          <div *ngIf="todoEvents.length === 0" class="no-events">
+            No events yet. Interact with the todos above!
+          </div>
+        </div>
+        <button (click)="clearTodoEvents()" class="btn btn-secondary btn-sm">Clear Events</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Input/Output Explanation -->
+  <div class="example-section">
+    <h3>@Input() and @Output() Concepts</h3>
+    <div class="concepts-grid">
+      <div class="concept-card">
+        <h4>@Input() Decorator</h4>
+        <p>Used to pass data from parent to child component</p>
+        <ul>
+          <li>Define input properties in child component</li>
+          <li>Pass data using property binding in parent template</li>
+          <li>Data flows down from parent to child</li>
+          <li>Supports one-way data binding</li>
+        </ul>
+        <code>@Input() user: any = {{ '{' }}{{ '}' }};</code>
+      </div>
+      
+      <div class="concept-card">
+        <h4>@Output() Decorator</h4>
+        <p>Used to emit events from child to parent component</p>
+        <ul>
+          <li>Define output properties as EventEmitter</li>
+          <li>Emit events using .emit() method</li>
+          <li>Listen to events using event binding in parent</li>
+          <li>Enables child-to-parent communication</li>
+        </ul>
+        <code>@Output() userSelected = new EventEmitter&lt;any&gt;();</code>
+      </div>
+      
+      <div class="concept-card">
+        <h4>EventEmitter</h4>
+        <p>Angular's class for emitting custom events</p>
+        <ul>
+          <li>Generic type for type safety</li>
+          <li>Use .emit() to send data</li>
+          <li>Parent listens with (event)="handler($event)"</li>
+          <li>Supports any data type</li>
+        </ul>
+        <code>this.userSelected.emit(userData);</code>
+      </div>
+      
+      <div class="concept-card">
+        <h4>Property Binding</h4>
+        <p>Syntax for passing data to child components</p>
+        <ul>
+          <li>Use square brackets [property]</li>
+          <li>Bind to component properties</li>
+          <li>Supports expressions and method calls</li>
+          <li>One-way data flow</li>
+        </ul>
+        <code>[user]="selectedUser"</code>
+      </div>
+    </div>
+  </div>
+</div>

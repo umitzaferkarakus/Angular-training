@@ -1,0 +1,173 @@
+<div class="built-in-directives-page">
+  <div class="page-header">
+    <h2>Built‑in Directives</h2>
+    <p class="subtitle">Structural and attribute directives with practical, side‑by‑side examples.</p>
+  </div>
+
+  <!-- Notes / Pros / Cons -->
+  <section class="notes card">
+    <h3>Key Notes</h3>
+    <ul>
+      <li>Structural directives add/remove DOM: <code>*ngIf</code>, <code>*ngFor</code>, <code>*ngSwitch</code>.</li>
+      <li>Attribute directives change appearance/behavior: <code>[ngClass]</code>, <code>[ngStyle]</code>, <code>[class...]</code>, <code>[style...]</code>.</li>
+      <li><code>*ngIf</code> removes from DOM; <code>[hidden]</code> only toggles visibility via CSS.</li>
+      <li>Use <code>trackBy</code> with <code>*ngFor</code> for performance and to preserve item state.</li>
+    </ul>
+    <div class="pros-cons">
+      <div>
+        <h4>Pros</h4>
+        <ul>
+          <li>Declarative and readable control flow.</li>
+          <li>Performance: fewer unnecessary DOM nodes (<code>*ngIf</code> + <code>trackBy</code>).</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Cons</h4>
+        <ul>
+          <li>Deep nesting can make templates hard to read.</li>
+          <li>Accessibility differences when using <code>[hidden]</code> vs removing elements.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- *ngIf vs [hidden] -->
+  <section class="example-section card">
+    <div class="section-header">
+      <h3>*ngIf vs [hidden]</h3>
+      <p class="hint">Toggle the panel and observe DOM vs CSS visibility.</p>
+    </div>
+    <div class="controls">
+      <label class="control">
+        <input type="checkbox" [(ngModel)]="showPanel"> Show panel
+      </label>
+      <label class="control">
+        <input type="checkbox" [(ngModel)]="useHidden"> Use [hidden] (keep in DOM when off)
+      </label>
+    </div>
+    <div class="panel" *ngIf="showPanel || useHidden" [hidden]="!showPanel && useHidden">
+      <strong>Panel Content</strong> — When <code>*ngIf</code> is false, the element is removed; <code>[hidden]</code> only hides it.
+    </div>
+    <ng-template [ngIf]="!showPanel && !useHidden">
+      <div class="placeholder">Panel is closed (not in the DOM).</div>
+    </ng-template>
+  </section>
+
+  <!-- *ngFor with trackBy and context vars -->
+  <section class="example-section card">
+    <div class="section-header">
+      <h3>*ngFor: trackBy and context</h3>
+      <p class="hint">See index/first/last/even/odd flags and a stable trackBy function.</p>
+    </div>
+    <div class="products">
+      <div
+        class="product"
+        *ngFor="let p of products; let i = index; let f = first; let l = last; let e = even; let o = odd; trackBy: trackByProductId"
+        [class.first]="f" [class.last]="l" [class.even]="e" [class.odd]="o">
+        <div class="row">
+          <span class="idx">#{{ i + 1 }}</span>
+          <span class="name">{{ p.name }}</span>
+          <span class="price">${{ p.price }}</span>
+          <span class="stock" [class.in]="p.inStock" [class.out]="!p.inStock">{{ p.inStock ? 'In stock' : 'Out of stock' }}</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ngSwitch -->
+  <section class="example-section card">
+    <div class="section-header">
+      <h3>ngSwitch: Status Messages</h3>
+      <p class="hint">Change the dropdown to render different cases.</p>
+    </div>
+    <div class="controls">
+      <select [(ngModel)]="status" class="select">
+        <option value="idle">idle</option>
+        <option value="success">success</option>
+        <option value="warning">warning</option>
+        <option value="error">error</option>
+      </select>
+    </div>
+    <div [ngSwitch]="status" class="status-box">
+      <div *ngSwitchCase="'success'" class="ok">✔ Success: Operation completed</div>
+      <div *ngSwitchCase="'warning'" class="warn">⚠ Warning: Please review</div>
+      <div *ngSwitchCase="'error'" class="err">✖ Error occurred</div>
+      <div *ngSwitchDefault class="idle">Waiting…</div>
+    </div>
+  </section>
+
+  <!-- [ngClass] and [ngStyle] -->
+  <section class="example-section card">
+    <div class="section-header">
+      <h3>[ngClass] and [ngStyle]</h3>
+      <p class="hint">Toggle flags and see class/style bindings update.</p>
+    </div>
+    <div class="controls">
+      <label class="control">
+        <input type="checkbox" [(ngModel)]="isActive"> isActive
+      </label>
+      <label class="control">
+        <input type="checkbox" [(ngModel)]="isDisabled"> isDisabled
+      </label>
+      <label class="control">
+        Theme
+        <select [(ngModel)]="theme" class="select">
+          <option value="light">light</option>
+          <option value="dark">dark</option>
+        </select>
+      </label>
+      <label class="control">
+        Color <input type="color" [(ngModel)]="dynamicColor">
+      </label>
+      <label class="control">
+        Font size <input type="number" [(ngModel)]="dynamicSize" min="10" max="32"> px
+      </label>
+    </div>
+    <div
+      class="demo-card"
+      [ngClass]="{
+        'active': isActive,
+        'disabled': isDisabled,
+        'theme-light': theme === 'light',
+        'theme-dark': theme === 'dark'
+      }"
+      [ngStyle]="{
+        'color': dynamicColor,
+        'font-size.px': dynamicSize
+      }">
+      <div class="title">Dynamic Card</div>
+      <div class="body">Binding class and styles using [ngClass] and [ngStyle].</div>
+    </div>
+  </section>
+
+  <!-- [class.foo], [style.bar] and [attr.*] -->
+  <section class="example-section card">
+    <div class="section-header">
+      <h3>[class.foo], [style.bar], [attr.*]</h3>
+      <p class="hint">Fine‑grained class/style/attribute bindings.</p>
+    </div>
+    <button
+      class="btn"
+      [class.btn-primary]="isActive"
+      [class.btn-disabled]="isDisabled"
+      [style.border]="'2px solid ' + dynamicColor"
+      [attr.aria-label]="ariaLabel"
+      [attr.data-testid]="dataTestId">
+      Action Button
+    </button>
+  </section>
+
+  <!-- ng-container / ng-template small demo -->
+  <section class="example-section card">
+    <div class="section-header">
+      <h3>ng-container and ng-template</h3>
+      <p class="hint">Use structural helpers for conditional blocks without extra wrappers.</p>
+    </div>
+    <ng-container *ngIf="products.length; else emptyTpl">
+      <p>Total products: <strong>{{ products.length }}</strong></p>
+    </ng-container>
+    <ng-template #emptyTpl>
+      <p>No products found.</p>
+    </ng-template>
+  </section>
+</div>

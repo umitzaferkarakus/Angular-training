@@ -1,0 +1,20 @@
+<div class="progress-bar-container" [ngClass]="getSizeClass()">
+  <div class="progress-header" *ngIf="label">
+    <span class="progress-label">{{ label }}</span>
+    <span class="progress-value">{{ displayValue }}</span>
+  </div>
+  
+  <div class="progress-track">
+    <div 
+      class="progress-fill"
+      [class.animated]="animated"
+      [class.complete]="isComplete"
+      [style.width.%]="percentage"
+      [style.background-color]="color">
+    </div>
+  </div>
+  
+  <div class="progress-footer" *ngIf="!label">
+    <span class="progress-value">{{ displayValue }}</span>
+  </div>
+</div>
